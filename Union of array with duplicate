@@ -1,0 +1,4 @@
+class Solution:
+    def findUnion(self, a, b):
+        # Use set to find all unique elements from both arrays
+        return list(set(a) | set(b))
