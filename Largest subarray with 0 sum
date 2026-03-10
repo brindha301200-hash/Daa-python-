@@ -1,0 +1,19 @@
+class Solution:
+    def maxLength(self, arr):
+        prefix_sum = 0
+        max_len = 0
+        sum_index = {}  # stores first occurrence of prefix_sum
+
+        for i, num in enumerate(arr):
+            prefix_sum += num
+
+            if prefix_sum == 0:
+                max_len = i + 1  # subarray from index 0 to i
+
+            elif prefix_sum in sum_index:
+                # Subarray between previous index + 1 to i has sum 0
+                max_len = max(max_len, i - sum_index[prefix_sum])
+            else:
+                sum_index[prefix_sum] = i  # store first occurrence
+
+        return max_len
