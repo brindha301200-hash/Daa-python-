@@ -1,0 +1,24 @@
+class Solution:
+    def missingNumber(self, arr):
+        n = len(arr)
+        
+        # Step 1: Ignore negatives and numbers > n
+        for i in range(n):
+            if arr[i] <= 0 or arr[i] > n:
+                arr[i] = 0
+        
+        # Step 2: Use index as hash to mark presence
+        for i in range(n):
+            val = abs(arr[i])
+            if 1 <= val <= n:
+                if arr[val - 1] > 0:
+                    arr[val - 1] = -arr[val - 1]
+                elif arr[val - 1] == 0:
+                    arr[val - 1] = -(n + 1)  # mark zero as negative
+        
+        # Step 3: Find first positive index
+        for i in range(n):
+            if arr[i] >= 0:
+                return i + 1
+        
+        return n + 1
