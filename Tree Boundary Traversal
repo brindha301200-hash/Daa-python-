@@ -1,0 +1,53 @@
+class Solution:
+    def boundaryTraversal(self, root):
+        if not root:
+            return []
+
+        res = []
+
+        def isLeaf(node):
+            return not node.left and not node.right
+
+        # Add left boundary
+        def addLeft(node):
+            while node:
+                if not isLeaf(node):
+                    res.append(node.data)
+                if node.left:
+                    node = node.left
+                else:
+                    node = node.right
+
+        # Add leaf nodes
+        def addLeaves(node):
+            if not node:
+                return
+            if isLeaf(node):
+                res.append(node.data)
+                return
+            addLeaves(node.left)
+            addLeaves(node.right)
+
+        # Add right boundary
+        def addRight(node):
+            temp = []
+            while node:
+                if not isLeaf(node):
+                    temp.append(node.data)
+                if node.right:
+                    node = node.right
+                else:
+                    node = node.left
+            while temp:
+                res.append(temp.pop())
+
+        # Root
+        if not isLeaf(root):
+            res.append(root.data)
+
+        addLeft(root.left)
+        addLeaves(root)
+        addRight(root.right)
+
+        return res
+        
