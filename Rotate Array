@@ -1,0 +1,15 @@
+class Solution:
+    def rotateArr(self, arr, d):
+        n = len(arr)
+        d = d % n
+        
+        # reverse first d elements
+        arr[:d] = arr[:d][::-1]
+        
+        # reverse remaining elements
+        arr[d:] = arr[d:][::-1]
+        
+        # reverse whole array
+        arr[:] = arr[::-1]
+        
+        return arr
